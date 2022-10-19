@@ -1,0 +1,39 @@
+						   JENKINS SSL CONFIGURATION
+
+sudo vim /etc/default/jenkins 
+sudo vim /lib/systemd/system/jenkins.service
+sudo systemctl daemon-reload
+sudo systemctl restart jenkins
+
+
+FILES:-
+1) sudo vim /etc/systemd/system/jenkins.service.d/override.conf  (Not a necessary step!)
+		[Service] Environment="JENKINS_PORT=8080"
+
+2) sudo vim /lib/systemd/system/jenkins.service
+		Environment="JENKINS_PORT=-1"
+		Environment="JENKINS_HTTPS_LISTEN_ADDRESS=127.0.0.1"
+		Environment="JENKINS_HTTPS_PORT=8443"
+		Environment="JENKINS_HTTPS_KEYSTORE=/var/lib/jenkins/jenkinsserver.jks"
+		Environment="JENKINS_HTTPS_KEYSTORE_PASSWORD=123456"
+
+3) sudo vim /etc/default/jenkins 
+		HTTP_PORT=8080
+
+
+
+NOTE:-
+When you get the error in Jenkins Console for "reverse proxy set up is broken", the go to :-
+1. Go to your Jenkins page
+2. Click Manage Jenkins
+3. Click Configure System
+4. Scroll to Jenkins Location and find Jenkins URL.
+and set the Jenkins URL to what you have given now, ie., "https://<ip-address>:8443"
+
+
+Useful links-
+To convert SSL certificate into JKS format:- https://middlewaretechnologies.in/2022/03/how-to-install-and-configure-a-secure-jenkins-server.html
+https://techdocs.broadcom.com/us/en/ca-enterprise-software/it-operations-management/unified-infrastructure-management/20-1/upgrading/ca-uim-upgrade-step-3-deploy-the-upgrade/upgrade-uim-server/secure-hub-and-robot-ca-uim-9-sp1/Convert-Files-to--pem-Format.html
+
+To make the required changes and configuration:- https://sam.gleske.net/blog/engineering/2016/05/04/jenkins-with-ssl.html
+

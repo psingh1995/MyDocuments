@@ -1,0 +1,20 @@
+1) Create a simple SQS queue.
+
+2) Create a Dynamodb table.
+
+3) Create a lambda function.
+- Choose Author from Scratch.
+- Click on ‘Change default execution role’ under ‘Permissions’ section
+- Create a new role from AWS policy templates:- 'Simple microservice permissions' & 'Amazon SQS poller permissions'
+- Create function
+
+3) Now inside the lambda function, paste your code for the tasks you want to perform.
+
+4) Go back to the SQS Console again and click on the queue created eariler -> Click on ‘Lambda Triggers’ -> Click on ‘Configure Lambda function trigger’ -> Select the lambda function which was created earlier -> Save
+
+5) Now if any message comes to SQS, it will go to DynamoDB table via the lambda function.
+
+
+- To check this go to lambda console and click on the ‘Monitor’ tab. Then click on the ‘View logs in CloudWatch’ button.
+
+- We can also get the messages from Amazon SNS by subscribing to a SNS topic from our SQS queue.

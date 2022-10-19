@@ -1,0 +1,38 @@
+1) Create a S3 bucket by the name "prageyabucket".
+
+
+2) Create an IAM Policy and copy the following json file in it:-
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                        "s3:GetBucketLocation",
+                        "s3:ListAllMyBuckets"
+                      ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::prageyabucket",
+                "arn:aws:s3:::prageyabucket/*"
+            ]
+        }
+    ]
+}
+
+
+3) Create a group called "s3users" and attach the policy which we just created.
+
+
+4) Create a user called "S3user" and add it to the group(s3users) which we just created.
+
+5) Now login with the IAM user which we have created. It will only be able to access the "prageyabucket" and nothing else.
+
+
+
+Video Link- https://www.youtube.com/watch?v=uwT8hcwzAnM

@@ -1,0 +1,75 @@
+STEPS:-
+
+1) Create an IAM policy and paste the following json code in it:-
+	
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:Start*",
+        "ec2:Stop*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+
+
+
+2) Now create a role and add the policy which we created earlier.
+
+
+
+3) Go to Lambda and create 2 different functions for start and stop using the role we have created:-
+
+
+	- for Stop instance function, paste the following python3.7 code in the lambda:-
+
+import boto3
+region = 'ap-south-1'
+instances = ['i-070ce588ad11318ec']
+ec2 = boto3.client('ec2', region_name=region)
+
+def lambda_handler(event, context):
+    ec2.stop_instances(InstanceIds=instances)
+    print('stopped your instances: ' + str(instances))
+
+
+	- for Start instance function, paste the following python3.7 code in the lambda:-
+
+import boto3
+region = 'ap-south-1'
+instances = ['i-12345', 'i-2345']
+ec2 = boto3.client('ec2', region_name=region)
+
+def lambda_handler(event, context):
+    ec2.start_instances(InstanceIds=instances)
+    print('started your instances: ' + str(instances))
+    
+    
+    
+4) Go to CloudWatch --> Events --> Rules --> Create Rule
+We have to create 2 different rules for START and STOP.
+
+	- for START rule, click Create rule --> Schedule --> Cron expression --> Set the time for server to start in cron (5 8 * * ? 0 -for starting at 8:05am on every SUnday) --> Targets --> Lambda function --> select the lambda function for START which we created earlier --> Give a name and desription for the rule --> Create rule 
+	
+	- for STop rule, click Create rule --> Schedule --> Cron expression --> Set the time for server to stop in cron (0 17 * * ? 0 -for stoping at 5:00pm on every SUnday) --> Targets --> Lambda function --> select the lambda function for STOP which we created earlier --> Give a name and desription for the rule --> Create rule 
+    
+    
+    
+5) Now the EC2 instance will start and stop automatically at the time which we have given.
+    
+    
+    
+Video Link- https://www.youtube.com/watch?v=PIQHS2PTYEU

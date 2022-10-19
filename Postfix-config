@@ -1,0 +1,28 @@
+1) Check nano /etc/hosts for the following line-
+			"your-server-ip email.linuxbuz.com"
+			
+2) nano /etc/postfix/main.cf
+3) Change the following line:
+			inet_interfaces = loopback-only
+4) sudo vim /etc/postfix/main.cf
+and change the line- relayhost = [smtp.gmail.com]:587
+and add the following lines-
+			# Enables SASL authentication for postfix 
+			smtp_sasl_auth_enable = yes 
+			# Disallow methods that allow anonymous authentication smtp_sasl_security_options = noanonymous 
+			# Location of sasl_passwd we saved 
+			smtp_sasl_password_maps = hash:/etc/postfix/sasl/sasl_passwd
+			# Enable STARTTLS encryption for SMTP 
+			smtp_tls_security_level = encrypt 
+			# Location of CA certificates for TLS 
+			smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+5) Create sudo vim /etc/postfix/sasl/sasl_passwd
+and add id and password in following format-
+			[smtp.gmail.com]:587 your-email-address@gmail.com:password
+6) Convert the sasl_passwd file into a database file, and delete the original file from the server. We can use the postmap command for converting.
+			sudo postmap /etc/postfix/sasl/sasl_passwd
+This will create a sasl_passwd.db file in the same location.
+7) Change the security and ownership of the password file to restrict root user access and read-write only.
+			chown root:root /etc/postfix/sasl/sasl_passwd
+			chmod 600 /etc/postfix/sasl/sasl_passwd
+

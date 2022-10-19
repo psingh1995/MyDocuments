@@ -1,0 +1,59 @@
+STEPS:
+
+1) Go to admin database and create a SuperUser:-
+
+db.createUser(
+  {
+    user: "myUserAdmin",
+    pwd: "abc123",
+    roles: [
+      { role: "userAdminAnyDatabase", db: "admin" },
+      { role: "readWriteAnyDatabase", db: "admin" }
+    ]
+  }
+)
+
+
+
+
+2) Create another user in admin database and give it permissions for db2 database only:-
+
+db.createUser(
+  {
+    user: "test1",
+    pwd: "test1",
+    roles: [
+      { role: "readWrite", db: "db2" }
+    ]
+  }
+)
+
+
+
+
+3) Add this in the /etc/mongod.conf file:-
+
+security:
+    authorization: enabled
+    
+    
+    
+    
+4) Restart mongo service:-
+
+sudo service mongodb restart
+
+
+
+
+5) Now go into mongodb by using username & password:-
+
+mongo --host 127.0.0.1 --port 27017 --authenticationDatabase "<database name>" -u "<username>" -p
+
+	(example:- mongo --host 127.0.0.1 --port 27017 --authenticationDatabase "admin" -u "myUserAdmin" -p)
+
+This will prompt to enter password.
+
+To Delete a user:-
+
+db.dropUser("<user name>")

@@ -1,0 +1,18 @@
+							SMTP SEND MAIL
+
+1) Install SMTP
+
+2) Go to /etc/ssmtp/ssmtp.conf and add the following configuration:-
+
+root=prageya.singh@reflexsolution.com
+mailhub=smtp.office365.com:587
+rewriteDomain=reflexsolution.com
+AuthUser=prageya.singh@reflexsolution.com
+AuthPass=*your_password*
+FromLineOverride=YES
+UseSTARTTLS=YES
+
+
+3) To send a mail, run the following command:-
+
+mail -s 'File Not Updated' -a From:Prageya\<prageya.singh@reflexsolution.com\> m.mokhtar@reflexsolution.com <<< 'Your file was not updated.'

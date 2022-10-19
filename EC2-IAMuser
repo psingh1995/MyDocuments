@@ -1,0 +1,10 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "ec2:*",
+            "Effect": "Allow",
+            "Resource": "arn:aws:ec2:us-east-1:062021280162:instance/i-0e9b5d62a184f6ccf"
+        }
+    ]
+}

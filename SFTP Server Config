@@ -1,0 +1,52 @@
+STEPS:-
+
+Step 1: Install SSH
+	sudo apt install ssh
+	
+Step 2: Change SSHD configuration for SFTP group
+	sudo vim /etc/ssh/sshd_config
+and add these at the end:-
+	Match group root
+	Match User sftp_user
+	ChrootDirectory /home/sftp_user
+	X11Forwarding no
+	AllowTcpForwarding no
+	ForceCommand internal-sftp
+	
+Step 3: Restart SSH services
+	sudo systemctl restart ssh
+	
+Step 4: Create SFTP users group
+	sudo addgroup sftp
+	
+Step 5: Create a new SFTP user
+	sudo useradd -m sftp_user -g sftp
+Set the password for the newly created sftp user by typing the following command:
+	sudo passwd sftp_user
+	
+Step 6: Grant permissions to the specific directory
+	sudo chmod 700 /home/sftp_user/
+	
+
+(
+Also give these permisiions to your folder( in this case /home/prageya) :_
+	1) sudo chown root:root /home/sftp_user
+	2) sudo chmod 0755 /home/sftp_user	
+)
+
+
+					Connect to the SFTP using the command line
+						sftp sftp_user@127.0.0.1
+						
+						
+						
+						SETTING UP THE SSH KEYS
+scp id_rsa.pub 
+scp id_rsa.pub scp id_rsa.pub 
+scp id_rsa.pub prageya@3.84.9.88:/home/prageya/.ssh/id_rsa.pub.prageya-ThinkPad-T430
+ssh prageya@3.84.9.88
+(we went into the remote server
+ cd ~/.ssh
+ cat id_rsa.pub.prageya-ThinkPad-T430 >> authorized_keys
+ rm id_rsa.pub.prageya-ThinkPad-T430)
+

@@ -1,0 +1,5 @@
+smtp host= localhost ( or- relay-hosting.secureserver.net)
+port= 25
+smtp auth= false
+smtp ssl= false/none
+

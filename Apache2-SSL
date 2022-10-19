@@ -1,0 +1,53 @@
+					APACHE2 SSL
+https://www.atlantic.net/dedicated-server-hosting/how-to-create-and-install-a-self-signed-ssl-certificate-on-ubuntu-20-04/
+
+STEPS:-
+
+1) Go to "vim /etc/apache2/sites-available/default-ssl.conf"
+Define your domain name and SSL certificate as shown below:
+		<IfModule mod_ssl.c>
+		<VirtualHost _default_:443>
+		ServerAdmin admin@example.com
+		ServerName your-server-ip
+		DocumentRoot /var/www/html
+
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+		SSLEngine on
+		SSLCertificateFile /etc/ssl/private/certificate.crt
+		SSLCertificateKeyFile /etc/ssl/private/private.key
+
+		<FilesMatch "\.(cgi|shtml|phtml|php)$">
+		SSLOptions +StdEnvVars
+		</FilesMatch>
+		<Directory /usr/lib/cgi-bin>
+		SSLOptions +StdEnvVars
+		</Directory>
+
+		</VirtualHost>
+		</IfModule>
+
+2) Save and close the file, then enable the virtual host file with the following command:
+		a2ensite default-ssl.conf
+
+3) Go to "vim /etc/apache2/sites-available/000-default.conf"
+Define your domain name and add a Redirect directive, pointing all traffic to the SSL version of the site:
+		<VirtualHost *:80>
+
+		ServerAdmin admin@example.com
+		ServerName your-server-ip
+		DocumentRoot /var/www/html
+
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+		Redirect "/" "https://your-server-ip/
+		</VirtualHost>
+
+4) Next, enable the SSL and header module with the following command:
+		a2enmod ssl
+		a2enmod headers
+
+5) Reload the Apache service to implement the changes:
+		systemctl reload apache2
