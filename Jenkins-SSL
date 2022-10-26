@@ -31,6 +31,23 @@ When you get the error in Jenkins Console for "reverse proxy set up is broken", 
 and set the Jenkins URL to what you have given now, ie., "https://<ip-address>:8443"
 
 
+To redirect from port 80 to 8080 and 443 to 8443:-
+https://stackoverflow.com/questions/9330367/how-to-configure-jenkins-to-run-on-port-80
+
+		Run these lines of code individually:
+		sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+		sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080
+
+		If your system is Debian-based, run:
+		sudo sh -c "iptables-save > /etc/iptables.rules"
+		
+		If your system is RedHat-based:
+		sudo iptables-save > /etc/sysconfig/iptables
+		
+		This process will change your default Jenkins port from 8080 to 80.
+
+
+
 Useful links-
 To convert SSL certificate into JKS format:- https://middlewaretechnologies.in/2022/03/how-to-install-and-configure-a-secure-jenkins-server.html
 https://techdocs.broadcom.com/us/en/ca-enterprise-software/it-operations-management/unified-infrastructure-management/20-1/upgrading/ca-uim-upgrade-step-3-deploy-the-upgrade/upgrade-uim-server/secure-hub-and-robot-ca-uim-9-sp1/Convert-Files-to--pem-Format.html
