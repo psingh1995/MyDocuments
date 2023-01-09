@@ -12,7 +12,7 @@ FILES:-
 
 2) sudo vim /lib/systemd/system/jenkins.service
 		Environment="JENKINS_PORT=-1"
-		Environment="JENKINS_HTTPS_LISTEN_ADDRESS=127.0.0.1"
+		Environment="JENKINS_HTTPS_LISTEN_ADDRESS=127.0.0.1 or put your domain name"
 		Environment="JENKINS_HTTPS_PORT=8443"
 		Environment="JENKINS_HTTPS_KEYSTORE=/var/lib/jenkins/jenkinsserver.jks"
 		Environment="JENKINS_HTTPS_KEYSTORE_PASSWORD=123456"
