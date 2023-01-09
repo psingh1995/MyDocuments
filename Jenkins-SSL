@@ -24,9 +24,9 @@ FILES:-
 
 NOTE:-
 When you get the error in Jenkins Console for "reverse proxy set up is broken", the go to :-
-1. Go to your Jenkins page
-2. Click Manage Jenkins
-3. Click Configure System
+1. Go to your Jenkins page.
+2. Click Manage Jenkins.
+3. Click Configure System.
 4. Scroll to Jenkins Location and find Jenkins URL.
 and set the Jenkins URL to what you have given now, ie., "https://<ip-address>:8443"
 
