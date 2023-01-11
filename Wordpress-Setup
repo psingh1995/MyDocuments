@@ -7,6 +7,10 @@ Step 1)
 Step 2)
 	Install and configure Wordpress. (Video link- https://www.youtube.com/watch?v=RtXA60HewUw&list=PLjVLYmrlmjGfC44WZSTvlsZFzxnQsysJb&index=3 )
 	
+Step 3)
+	To download themes, it will require a FTP User. (Made from this artiicle:- https://linuxconfig.org/how-to-setup-and-use-ftp-server-in-ubuntu-linux )
+	In this case:- ftp username- ftpuser
+		       password	   - a
 	
 	
 	
