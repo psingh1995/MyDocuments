@@ -9,6 +9,7 @@ Step 2)
 	
 Step 3)
 	To download themes, it will require a FTP User. (Made from this artiicle:- https://linuxconfig.org/how-to-setup-and-use-ftp-server-in-ubuntu-linux )
+	Also have to change the owner of your website folder (inside /opt/lampp/) from 'root' to 'ftpuser'.
 	In this case:- ftp username- ftpuser
 		       password	   - a
 	

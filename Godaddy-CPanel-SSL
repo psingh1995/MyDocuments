@@ -1,0 +1,23 @@
+							SSL Setup through Godaddy cPanel
+							
+Step 1:-
+	Go to SSLS.com and click to generate new ssl certificate and fill the required details about the domain.
+	
+Step 2:-
+	Generate CSR(Certificate Signing Request) in linux terminal with the following command (.csr and .key file will be generated).
+		 "# openssl req -new -newkey rsa:2048 -nodes -keyout example.com.key -out example.com.csr"
+		 
+Step 3:-
+	Paste the .csr file generated in the previous step in the SSLS.com console where it is asked.
+	
+Step 4:-
+	Now it will generate a text file in SSLS.com which we have to paste in the File Manager inside cPanel on the path described in the SSLS.com. Once done, our SSL certifucate zip folder is ready to download (it will contain a .crt file and a .ca-bundle file).
+
+Step 5:-
+	 Inside cPanel in GoDaddy.com go to:-
+	 	SSL/TLS --->  Manage SSL sites ---> Search your Domain name (lanzeintegra.com in this case) ---> Update Certifcate
+	 	
+ 	Here we have to paste 3 things:-
+ 					1) Certificate (.crt file downloaded from SSLS.com in Step 4).
+ 					2) Private Key (.key file generated in Step 2 during CSR process).
+ 					3) Certificate Authority Bundle: (CABUNDLE) (.ca-bundle file downloaded from SSLS.com in Step 4) 
