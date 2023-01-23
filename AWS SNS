@@ -1,0 +1,70 @@
+			AWS Simple Notifictaion Service(SNS)
+			
+- a push notification service
+- manages delivery/sending of messages to subscribing endpoints or clients
+- allows individual messages or Fan-Out messages to a large no. of recipients or to other distributed AWS Services
+- messages published to SNS Topics will be delivered to the subscriber immediately
+- inexpesive, pay-as-you-go model, no upfront cost
+- reliable(atleast 3 copies of data stored across multiple AZ in same region)
+
+
+  	Publisher----> SNS Topic---->Lambda
+  				   -->SQS
+  				   -->HTTP/S
+  				   -->email
+  				   -->SMS
+  				   
+  				   
+PUBLISHER- aka Producer that produce and send the message to the SNS which is a logical access point.
+
+SUBSCRIBER- such as webservers, email addresses, Amazon SQS Queues, AWS Lambda etc, recieve the message or notification from SNS Over one of the supported protocols ( Amazon SQS, email, lambda, HTTPS, SMS)
+
+SNS TOPIC- is a logical access point and communication channel
+	 - each topic has a unique name (limited to 256 alphanumeric) within AWS account
+	 - a topic can support subscribers and notification deliveries over multiple protocols
+	 - deliver formats/transport protocols(endpoints) -> SMS, email, email-JSON(for applications), HTTP/HTTPS, SQS, AWS Lambda 
+
+
+
+Supported Push Notification Platforms:-
+- Amazon Device Messaging
+- Apple push Notification Service
+- Google Cloud Messaging
+- Windows push Notification Service
+- Baidu cloud push for Android
+
+
+
+Amazon SNS Pricing:-
+1) Publish action -> each 64kb of request payload count as onerequest. So, 256kb payload will be charged as four request.
+2) Mobile push notification -> for eg. $0.50/million requests.
+3) SMS -> price depends on country.
+4) E-mail -> $2/100,00
+5) HTTP/S notification -> %0.60/million
+6) SQS and Lambda Calls are free. These are charged at SQS and Lambda rates.
+7) Data Transfer
+
+
+
+Amazon SNS alternatives:-
+- Amazon Kinesis Data Stream
+- Amazon Managed Queue Service(AWS MQ)
+- Apache Kafka
+- Twilio
+- Pusher
+
+
+
+								STEPS:-
+
+1) Go to AWS Console -> Application Intgration -> Simple Notification Service
+2) Choose create topic -> Give it a unique name(without spaces) -> Select your preferences (if any) -> Create Topic
+3) Now select Create Subscription -> Select a Protocol -> enter the Endpoint (eg. email id in case of email) -> Create subscription
+4) Go to your email id which you have given in subscription and confirm subscription
+5) Now select Publish Message -> eneter the subject and body of the message -> Publish message
+6) This message will be sent to all the subscriptions which we have created.
+
+
+Text Messaging(SMS) Steps:-
+1) Select Text messaging (SMS) -> Publiush text message -> enter mobile no. -> type the message -> Publish message
+2) This message will be recieved by the phone no. which we entered.   			

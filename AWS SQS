@@ -1,0 +1,101 @@
+			AWS Simple Queue Service (SQS)
+
+- a pull service
+- a webservice that gives access to message queues that stores messages to be processed
+- it allows decoupling of application components
+- all messages in a SQS queue can be deleted without deleting the queue
+- you can use autoscaling to scale the ec2 fleet proceesing the SQS messages, as the queue size increases
+- these applications on ec2 instances can process the SQS messages/jobs then post the results to other SQS Queues or other AWS service
+
+
+
+SQS can be used with:-
+DynamoDB, EC2, ECS, Redshift, RDS, Lambda, S3 to make distributed/Decoupled applications
+
+
+
+AWS Queue Types:-
+1) STANDARD QUEUE - high(unlimited throughput)
+		   - atleast one delivery
+		   - duplicacy is possible
+		   - best effort ordering
+		   
+2)FIFO QUEUE - limited throughput
+	      - exactly one processing
+	      - duplicacy is not possible
+	      - strict ordering -> First in-First out
+	      - limited to 300 transactions per second (TPS), but have all the capabilities of standard queue
+	     
+
+	     
+SQS Pricing:-
+- The first  1 million monthly requests are free. After that pricing is according to regions.
+for eg.- in Mumbai region:-
+	  Standard Queue- $0.40/million requests	
+	  FIFO Queue- $0.40/million requests    
+	  
+	  
+	  
+How Amazon SQS charges:-
+1) API action
+2) FIFO Request
+3) Contents of Request(a single request can have 1 to 10 messages, upto a max of 256kb)
+4) Size of Payload(each 64kb chunk of payload counted as 1 request)
+5) Interaction with Amazon S3
+6) Interaction with AWS KMS(Key Management Services) 
+
+
+
+Short Polling:-
+- a request is returned immediately even if the queue is empty
+- it does not wait for messages to appear in the queue
+- default by SQS
+- Recieve Message Wait time is set to 0
+- more requests are used which implies higher cost
+
+Long Polling:-
+It uses fewer requests and request cost by-
+	- eliminating false empty responses by querying all the servers
+	- reduce the number of empty responses, by allowing Amazon SQS to wait until a message is available in the queue before sending a response unless the connection timeout (20 sec)
+	- Recieve Message Wait time is set to a non-zero value (max 20 seconds)
+	
+Billing is same for both the pollings.
+
+
+SQS Retention Period- 
+SQS messages can remain the queue for 14 days (SQS Retention Period) (Range is 1minute to 14days) (Default is 4 days). After that message will be deleted.
+
+
+SQS Visibiltiy Timeout-
+The duration of time a message is locked for read by other servers. (Max. is 12 hours, Default is 30 seconds)
+After the message is read, there are the following possibilities:-
+1) an ACK is recieved that a message is processed, so it must be deleted from the queue to avoid duplicates.
+2) if a Fail is recieved or the visibility timeout expires, the message will then be unlocked for read, such that it can be read and processed by other servers.
+
+
+Delivery Delay-
+to postpone the delivery of new messages to a queue. If delivery delay is defined for the queue, any new messages will not be visible to the server for the duration of delay.(default delay for a queue is 0 seconds, Max. is 15 minutes)
+
+
+Recieve Message Wait Time-
+the max amount of time that a long polling recieve call will wait for a message to become available before returning an empty response.(deafult is 0 seconds, Max is 20 sec) 
+
+
+Dead Letter Queue-
+- It's main task is handling message failure.
+- It lets you set aside and isolate messaes that can't be processed correcly to determine why their processing did not succeed.
+- don't use it with FIFO Queue, if you don't want to break the exact order of messages or operations.
+- DLQ must be of the same type as the source queue (Standard or FIFO).
+
+
+
+								STEPS:-
+
+1) Go to AWS Console -> Application Intgration -> Simple Queue Service
+2) Create New Queue -> give the name -> select the type of queue -> configure anything you want -> Create Queue
+3) Now our queue is created 
+4) Go inside your queue -> Send and recieve messages -> type the message and send
+5) Now it will show these under 'Messages available' section
+6) Now we have to create a Lambda function and set trigger for SQS
+go to Lambda -> create function -> Use a Blueprint -> search sqs-poller -> choose the queue you created -> create function
+7) Once the function is started, our messages will disappear from the 'Messages available' secton. It means that our messages from the queue have been read by lambda. We can see this in Monitoring section in the queue.
