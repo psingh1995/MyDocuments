@@ -57,7 +57,7 @@ Amazon SNS alternatives:-
 
 								STEPS:-
 
-1) Go to AWS Console -> Application Intgration -> Simple Notification Service
+1) Go to AWS Console -> Application Integration -> Simple Notification Service
 2) Choose create topic -> Give it a unique name(without spaces) -> Select your preferences (if any) -> Create Topic
 3) Now select Create Subscription -> Select a Protocol -> enter the Endpoint (eg. email id in case of email) -> Create subscription
 4) Go to your email id which you have given in subscription and confirm subscription
