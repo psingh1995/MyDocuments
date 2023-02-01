@@ -61,7 +61,7 @@ Amazon SNS alternatives:-
 2) Choose create topic -> Give it a unique name(without spaces) -> Select your preferences (if any) -> Create Topic
 3) Now select Create Subscription -> Select a Protocol -> enter the Endpoint (eg. email id in case of email) -> Create subscription
 4) Go to your email id which you have given in subscription and confirm subscription
-5) Now select Publish Message -> eneter the subject and body of the message -> Publish message
+5) Now select Publish Message -> enter the subject and body of the message -> Publish message
 6) This message will be sent to all the subscriptions which we have created.
 
 

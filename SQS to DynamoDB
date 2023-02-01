@@ -20,6 +20,10 @@
 - We can also get the messages from Amazon SNS by subscribing to a SNS topic from our SQS queue.
 
 
+
+DOCUMENT LINK (for code):- https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html
+			   https://aws.amazon.com/premiumsupport/knowledge-center/lambda-sns-ses-dynamodb/
+
 VIDEO LINK:- https://www.youtube.com/watch?v=y57oIlK9mHc	 
 
 
