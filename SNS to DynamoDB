@@ -1,0 +1,31 @@
+						SNS to Lambda to DynamoDb
+
+Link:- https://www.youtube.com/watch?v=3eLp6RG5s6Y
+       https://www.youtube.com/watch?v=eziMFcMUKAQ 
+       
+       
+This is working.!!!!!!
+
+
+code:-
+
+const AWS = require('aws-sdk');
+const docClient = new AWS.DynamoDB.DocumentClient({region:'ap-south-1'});
+exports.handler = (event, context, callback) => {
+    // TODO implement
+    var params={
+        Item:{
+            messageid:event.Records[0].Sns.MessageId,
+            message:event.Records[0].Sns.Message,
+        },
+        TableName: 'Message'
+    };
+    docClient.put(params, function(err, data){
+        if(err){
+            callback(err,null);
+        }else{
+            callback(null, data);
+        }
+    });
+}
+
